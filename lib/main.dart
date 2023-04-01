@@ -20,8 +20,10 @@ class MyApp extends StatefulWidget {
 //adding _ before any variable or class name makes it a private scope thereby restraining its changablity from outside other places
 class _MyAppState extends State<MyApp> {
   var _questionidx = 0;
+  int _totalScore = 0;
 
-  void _answerQuestion() {
+  void _answerQuestion(int toAddScore) {
+    _totalScore += toAddScore;
     setState(() {
       //it calls the build function again to re render the application
       //add the code which ever needs to change its state or re-render the app whenever a local state is changed
@@ -42,19 +44,39 @@ class _MyAppState extends State<MyApp> {
   var _questions = [
     {
       'questionText': 'Do you think mental health is important for one?',
-      'answers': ['yes', 'no', 'Of course yes', 'absolutely NO'],
+      'answers': [
+        {'text': 'yes', 'score': 5},
+        {'text': 'no', 'score': -5},
+        {'text': 'Of course yes', 'score': 10},
+        {'text': 'Of course NO', 'score': -10}
+      ],
     },
     {
       'questionText': 'What\'s your favorite color?',
-      'answers': ['Black', 'Red', 'Green', 'White'],
+      'answers': [
+        {'text': 'Black', 'score': 5},
+        {'text': 'Red', 'score': 10},
+        {'text': 'Green', 'score': 15},
+        {'text': 'White', 'score': 20}
+      ],
     },
     {
       'questionText': 'What\'s your favorite animal?',
-      'answers': ['Rabbit', 'Snake', 'Elephant', 'Lion'],
+      'answers': [
+        {'text': 'Rabbit', 'score': 5},
+        {'text': 'Snake', 'score': 10},
+        {'text': 'Elephant', 'score': 15},
+        {'text': 'Lion', 'score': 20}
+      ],
     },
     {
-      'questionText': 'What\'s your favorite instructor?',
-      'answers': ['Max', 'Max', 'Max', 'Max'],
+      'questionText': 'What\'s your favorite food?',
+      'answers': [
+        {'text': 'Biryani', 'score': 5},
+        {'text': 'Pizza', 'score': 10},
+        {'text': 'Burger', 'score': 15},
+        {'text': 'Pasta', 'score': 20}
+      ],
     }
   ];
 
@@ -76,7 +98,7 @@ class _MyAppState extends State<MyApp> {
                   goBackQuestion: _goBackQuestion,
                   questionidx: _questionidx,
                 )
-              : Result()),
+              : Result(_totalScore)),
     );
   }
 }

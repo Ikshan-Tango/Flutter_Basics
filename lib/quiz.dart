@@ -7,17 +7,18 @@ import './question.dart';
 import './answer.dart';
 
 class Quiz extends StatelessWidget {
-  final VoidCallback answerQuestion;
+  final Function answerQuestion;
   final int questionidx;
   final VoidCallback goBackQuestion;
 
   final List<Map<String, Object>> questions;
 
-  Quiz(
-      {required this.questions,
-      required this.answerQuestion,
-      required this.goBackQuestion,
-      required this.questionidx});
+  Quiz({
+    required this.questions,
+    required this.answerQuestion,
+    required this.goBackQuestion,
+    required this.questionidx,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -30,8 +31,12 @@ class Quiz extends StatelessWidget {
         //every answer depends on the question, therefor answer widget depends on question and main.dart (for updating index) as well
 
         //what we are doing here is that in children, there comes widgets which are in a list, and in a list we are adding another list because map function needs that, by adding ... we are defragmenting the inner lists to separate alag alag widgets
-        ...(questions[questionidx]['answers'] as List<String>).map((answer) {
-          return Answer(answerQuestion, answer);
+        ...(questions[questionidx]['answers'] as List<Map<String, Object>>)
+            .map((answer) {
+          return Answer(
+              () => answerQuestion(answer['score']),
+              answer['text']
+                  .toString()); //my answer question function takes in arguements hence we need to call a ()=> function here which takes no arguments
         }).toList(),
 
         //to go backward
