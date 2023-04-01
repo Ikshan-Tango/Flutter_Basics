@@ -41,6 +41,13 @@ class _MyAppState extends State<MyApp> {
     print("GO Back Question Function: $_questionidx");
   }
 
+  void _resetQuiz() {
+    setState(() {
+      _questionidx = 0;
+      _totalScore = 0;
+    });
+  }
+
   var _questions = [
     {
       'questionText': 'Do you think mental health is important for one?',
@@ -98,7 +105,7 @@ class _MyAppState extends State<MyApp> {
                   goBackQuestion: _goBackQuestion,
                   questionidx: _questionidx,
                 )
-              : Result(_totalScore)),
+              : Result(_totalScore, _resetQuiz)),
     );
   }
 }

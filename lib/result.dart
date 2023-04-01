@@ -1,11 +1,9 @@
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
-
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 
 class Result extends StatelessWidget {
   final int totalScore;
-  const Result(this.totalScore);
+  final VoidCallback resetHandler;
+  Result(this.totalScore, this.resetHandler);
 
   @override
   Widget build(BuildContext context) {
@@ -17,6 +15,10 @@ class Result extends StatelessWidget {
             style: TextStyle(fontSize: 36, fontWeight: FontWeight.bold),
             textAlign: TextAlign.center,
           ),
+          TextButton(
+            onPressed: resetHandler,
+            child: Text("Restart Quiz"),
+          )
         ],
       ),
     );
